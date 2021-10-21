@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
-public class Produtos extends JFrame {
+public class TelaProdutos extends JFrame {
 
 	private JPanel contentPane;
 
