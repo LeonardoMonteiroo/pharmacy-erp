@@ -91,11 +91,15 @@ public class Lote extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JList list = new JList();
-		list.setBounds(226, 75, 165, 161);
+		list.setBounds(226, 75, 165, 113);
 		contentPane.add(list);
 		
 		JLabel lblNewLabel_4 = new JLabel("Itens");
 		lblNewLabel_4.setBounds(226, 59, 46, 14);
 		contentPane.add(lblNewLabel_4);
+		
+		JButton btnCadastrarLote = new JButton("Cadastrar Lote");
+		btnCadastrarLote.setBounds(226, 212, 165, 23);
+		contentPane.add(btnCadastrarLote);
 	}
 }
