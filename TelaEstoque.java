@@ -73,7 +73,15 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Voltar");
-		btnNewButton_1.setBounds(286, 11, 89, 23);
+		btnNewButton_1.setBounds(286, 6, 89, 23);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_1_1 = new JButton("Cadastrar produto");
+		btnNewButton_1_1.setBounds(10, 6, 121, 23);
+		contentPane.add(btnNewButton_1_1);
+		
+		JButton btnNewButton_1_1_1 = new JButton("Entrada");
+		btnNewButton_1_1_1.setBounds(148, 6, 121, 23);
+		contentPane.add(btnNewButton_1_1_1);
 	}
 }
