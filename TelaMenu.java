@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
-public class Menu extends JFrame {
+public class TelaMenu extends JFrame {
 
 	private JPanel contentPane;
 
