@@ -1,11 +1,12 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 public class TelaProdutos extends JFrame {
-
-
 	private JPanel contentPane;
 
 	/**
@@ -15,7 +16,7 @@ public class TelaProdutos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Produto frame = new Produto();
+					TelaProdutos frame = new TelaProdutos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
