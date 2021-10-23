@@ -1,12 +1,10 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
 public class TelaProdutos extends JFrame {
+
 
 	private JPanel contentPane;
 
@@ -17,7 +15,7 @@ public class TelaProdutos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Produtos frame = new Produtos();
+					Produto frame = new Produto();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -28,8 +26,9 @@ public class TelaProdutos extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @return 
 	 */
-	public Produtos() {
+	public TelaProdutos() {
 		setTitle("Produto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 296, 162);
