@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.JScrollBar;
@@ -17,22 +18,32 @@ public class TelaCaixa extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField textField;
+	private JTextField campoCod;
 	private JLabel lblNewLabel;
 	private JLabel lblQtde;
-	private JTextField textField_1;
-	private JButton btnNewButton;
+	private JTextField campoQuant;
+	private JButton btnAdicionar;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JButton btnNewButton_1;
 	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_4;
+	private JLabel precoTotal;
 	private JButton btnNewButton_2;
 
 	/**
 	 * Launch the application.
 	 */
+	
+	String colunas[] = {"Nome", "Código", "Quantidade", "Preço UN"};
+	private DefaultTableModel obj1 = new DefaultTableModel(colunas, 0);
+
+	int check = 0;
+	
 	public static void main(String[] args) {
+
+		
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -61,15 +72,15 @@ public class TelaCaixa extends JFrame {
 		scrollBar.setBounds(262, 54, 17, 176);
 		contentPane.add(scrollBar);
 		
-		table = new JTable();
+		table = new JTable(0, 4);
 		table.setBorder(UIManager.getBorder("ComboBox.border"));
 		table.setBounds(41, 54, 239, 176);
 		contentPane.add(table);
 		
-		textField = new JTextField();
-		textField.setBounds(41, 23, 46, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		campoCod = new JTextField();
+		campoCod.setBounds(41, 23, 46, 20);
+		contentPane.add(campoCod);
+		campoCod.setColumns(10);
 		
 		lblNewLabel = new JLabel("C\u00F3digo");
 		lblNewLabel.setBounds(41, 10, 46, 14);
@@ -79,19 +90,56 @@ public class TelaCaixa extends JFrame {
 		lblQtde.setBounds(97, 10, 46, 14);
 		contentPane.add(lblQtde);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(97, 23, 46, 20);
-		contentPane.add(textField_1);
+		campoQuant = new JTextField();
+		campoQuant.setColumns(10);
+		campoQuant.setBounds(97, 23, 46, 20);
+		contentPane.add(campoQuant);
 		
-		btnNewButton = new JButton("Adicionar");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Caixa p1 = new Caixa();
+				p1.setCodigo(Integer.parseInt(campoCod.getText()));
+				p1.setQnt(Integer.parseInt(campoQuant.getText())); 
+							//nao mexer, gambiarra!!!
+				if(check==0) {
+				obj1.addRow(new String[] {
+						colunas[0],
+						colunas[1],
+						colunas[2],
+						colunas[3]
+				});
+				check=1;
+				}
 				
-			}
+				if(check==1){
+				
+				obj1.addRow(new String[] {
+						p1.getNome(), 
+						String.valueOf(p1.getCodigo()),
+						String.valueOf(p1.getQnt()),
+						String.valueOf(p1.getPrecoUnitario()) 
+				});
+				
+				check=2;
+				
+				}else {
+					
+					obj1.addRow(new String[] {
+							p1.getNome(), 
+							String.valueOf(p1.getCodigo()),
+							String.valueOf(p1.getQnt()),
+							String.valueOf(p1.getPrecoUnitario())
+					});
+				}
+				
+				table.setModel(obj1);
+				
+			} 
 		});
-		btnNewButton.setBounds(203, 22, 77, 23);
-		contentPane.add(btnNewButton);
+		
+		btnAdicionar.setBounds(203, 22, 77, 23);
+		contentPane.add(btnAdicionar);
 		
 		lblNewLabel_1 = new JLabel("Total");
 		lblNewLabel_1.setBounds(345, 157, 46, 14);
@@ -109,9 +157,11 @@ public class TelaCaixa extends JFrame {
 		lblNewLabel_3.setBounds(345, 54, 61, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		lblNewLabel_4 = new JLabel("R$ 0,00");
-		lblNewLabel_4.setBounds(345, 68, 46, 14);
-		contentPane.add(lblNewLabel_4);
+		precoTotal = new JLabel("R$ 0,00");
+		precoTotal.setBounds(345, 68, 46, 14);
+		contentPane.add(precoTotal);
+		//setvalor
+		//getvalor
 		
 		btnNewButton_2 = new JButton("Voltar");
 		btnNewButton_2.setBounds(319, 22, 105, 23);
