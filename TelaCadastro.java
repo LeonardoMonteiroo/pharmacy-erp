@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,13 +6,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCadastro extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField campoNome;
+	private JTextField campoCodigo;
+	private JTextField campoPreco;
 
 	/**
 	 * Launch the application.
@@ -42,20 +43,20 @@ public class TelaCadastro extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(26, 54, 226, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		campoNome = new JTextField();
+		campoNome.setBounds(26, 54, 226, 20);
+		contentPane.add(campoNome);
+		campoNome.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(26, 117, 226, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		campoCodigo = new JTextField();
+		campoCodigo.setBounds(26, 117, 226, 20);
+		contentPane.add(campoCodigo);
+		campoCodigo.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(26, 180, 226, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		campoPreco = new JTextField();
+		campoPreco.setBounds(26, 180, 226, 20);
+		contentPane.add(campoPreco);
+		campoPreco.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
 		lblNewLabel.setBounds(26, 32, 46, 14);
@@ -70,6 +71,17 @@ public class TelaCadastro extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("Cadastrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Produto prod1 = new Produto();
+				
+				prod1.setCodigo(Integer.parseInt(campoCodigo.getText()));
+				prod1.setNome(campoNome.getText());
+				prod1.setPrecoUnitario(Float.parseFloat(campoPreco.getText()));
+				
+				//adicionr saida automatica apos cadastro
+			}
+		});
 		btnNewButton.setBounds(26, 227, 89, 23);
 		contentPane.add(btnNewButton);
 	}
