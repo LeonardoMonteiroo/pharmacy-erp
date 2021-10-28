@@ -150,7 +150,7 @@ public class TelaCaixa extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		btnNewButton_1 = new JButton("Fechar pedido");
-		btnNewButton_1.setBounds(319, 207, 105, 23);
+		btnNewButton_1.setBounds(306, 207, 118, 23);
 		contentPane.add(btnNewButton_1);
 		
 		lblNewLabel_3 = new JLabel("Pre\u00E7o Total");
@@ -164,6 +164,13 @@ public class TelaCaixa extends JFrame {
 		//getvalor
 		
 		btnNewButton_2 = new JButton("Voltar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaMenu telaMenu = new TelaMenu();
+				telaMenu.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_2.setBounds(319, 22, 105, 23);
 		contentPane.add(btnNewButton_2);
 	}
