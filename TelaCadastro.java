@@ -84,5 +84,16 @@ public class TelaCadastro extends JFrame {
 		});
 		btnNewButton.setBounds(26, 227, 89, 23);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaEstoque telaEstoque = new TelaEstoque();
+				telaEstoque.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(163, 227, 89, 23);
+		contentPane.add(btnNewButton_1);
 	}
 }
