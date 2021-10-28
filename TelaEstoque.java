@@ -1,15 +1,15 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaEstoque extends JFrame {
 
@@ -73,15 +73,38 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaMenu telaMenu = new TelaMenu();
+				telaMenu.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1.setBounds(286, 6, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Cadastrar produto");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastro telaCadastro = new TelaCadastro();
+				telaCadastro.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1_1.setBounds(10, 6, 121, 23);
 		contentPane.add(btnNewButton_1_1);
+		//abrir TelaCadastro
 		
 		JButton btnNewButton_1_1_1 = new JButton("Entrada");
+		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaLote telaLote = new TelaLote();
+				telaLote.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1_1_1.setBounds(148, 6, 121, 23);
 		contentPane.add(btnNewButton_1_1_1);
+		//abrir TelaLote
 	}
 }
