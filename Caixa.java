@@ -1,11 +1,16 @@
 
-public class Caixa extends Produto{
+public class Caixa{
 	//atributos
 	
-	private int ped=0, qnt; //apagar cod
+	private int ped=0, qnt;
 	float valorTotal;
+	private Produto produto;
+
 	//array dos codigos pra garantir que n vao se repetir (fazer um if no setCod)
 	
+	public void setProduto(Produto produto){
+		this.produto=produto;
+	}
 	
 	public int getPed() {
 		return ped;
