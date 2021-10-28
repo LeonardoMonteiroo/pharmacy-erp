@@ -1,10 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaMenu extends JFrame {
 
@@ -17,7 +18,7 @@ public class TelaMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
+					TelaMenu frame = new TelaMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +30,7 @@ public class TelaMenu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {
+	public TelaMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -38,14 +39,33 @@ public class TelaMenu extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton_1 = new JButton("Estoque");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaEstoque telaEstoque = new TelaEstoque();
+				telaEstoque.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1.setBounds(268, 87, 133, 51);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Sair");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnNewButton_1_1.setBounds(335, 227, 89, 23);
 		contentPane.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_2 = new JButton("Caixa");
+		btnNewButton_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCaixa telaCaixa = new TelaCaixa();
+				telaCaixa.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1_2.setBounds(48, 87, 133, 51);
 		contentPane.add(btnNewButton_1_2);
 	}
