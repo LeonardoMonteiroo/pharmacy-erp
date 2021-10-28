@@ -98,8 +98,8 @@ public class TelaEstoque extends JFrame {
 		JButton btnNewButton_1_1_1 = new JButton("Entrada");
 		btnNewButton_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaLote telaLote = new TelaLote();
-				telaLote.setVisible(true);
+				TelaEntrada telaEntrada = new TelaEntrada();
+				telaEntrada.setVisible(true);
 				dispose();
 			}
 		});
