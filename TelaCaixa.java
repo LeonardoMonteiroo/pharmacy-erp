@@ -98,10 +98,14 @@ public class TelaCaixa extends JFrame {
 		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Produto prod = new Produto();
+				prod.setCodigo(Integer.parseInt(campoCod.getText()));
+				
 				Caixa p1 = new Caixa();
-				p1.setCodigo(Integer.parseInt(campoCod.getText()));
 				p1.setQnt(Integer.parseInt(campoQuant.getText())); 
-							//nao mexer, gambiarra!!!
+							
+				//nao mexer, gambiarra!!!
 				if(check==0) {
 				obj1.addRow(new String[] {
 						colunas[0],
@@ -112,18 +116,19 @@ public class TelaCaixa extends JFrame {
 				check=1;
 				}
 				
-				if(check==1){
+				if(check==1 || check==2){ //testar se funciona
 				
 				obj1.addRow(new String[] {
-						p1.getNome(), 
-						String.valueOf(p1.getCodigo()),
+						String.valueOf(prod.getNome()), 
+						String.valueOf(prod.getCodigo()),
 						String.valueOf(p1.getQnt()),
-						String.valueOf(p1.getPrecoUnitario()) 
+						String.valueOf(prod.getPrecoUnitario()) 
 				});
 				
 				check=2;
 				
-				}else {
+				}
+				/*else {
 					
 					obj1.addRow(new String[] {
 							p1.getNome(), 
@@ -131,7 +136,7 @@ public class TelaCaixa extends JFrame {
 							String.valueOf(p1.getQnt()),
 							String.valueOf(p1.getPrecoUnitario())
 					});
-				}
+				}*/
 				
 				table.setModel(obj1);
 				
