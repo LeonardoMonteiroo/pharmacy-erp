@@ -81,8 +81,8 @@ public class TelaEntrada extends JFrame {
 				Produto prod = new Produto();
 				prod.setCodigo(Integer.parseInt(txCod.getText()));
 				
-				Caixa p1 = new Caixa();
-				p1.setQnt(Integer.parseInt(txQuantidade.getText())); 
+				Pedido p1 = new Pedido();
+				p1.setQntd(Integer.parseInt(txQuantidade.getText())); 
 							
 				//nao mexer, gambiarra!!!
 				if(check==0) {
@@ -99,7 +99,7 @@ public class TelaEntrada extends JFrame {
 				obj1.addRow(new String[] {
 						String.valueOf(prod.getNome()), 
 						String.valueOf(prod.getCodigo()),
-						String.valueOf(p1.getQnt()),
+						String.valueOf(p1.getQntd()),
 						String.valueOf(prod.getPrecoUnitario()) 
 				});
 				
