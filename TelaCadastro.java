@@ -79,6 +79,10 @@ public class TelaCadastro extends JFrame {
 				prod1.setNome(campoNome.getText());
 				prod1.setPrecoUnitario(Float.parseFloat(campoPreco.getText()));
 				
+				TelaEstoque telaEstoque = new TelaEstoque();
+				telaEstoque.setVisible(true);
+				dispose();
+				
 				//adicionr saida automatica apos cadastro
 			}
 		});
