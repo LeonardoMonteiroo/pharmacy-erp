@@ -1,47 +1,57 @@
-import java.util.ArrayList;
-
-public class Pedido{
-	//atributos
+public class Produto { //extends Produto
+	private int codigo;
+	private String nome;
+	private float precoUnitario;
 	
-	private int codPed=0;
-	private int[] qntd;
-	private ArrayList<Produto> produto = new ArrayList<Produto>();
-	private float valorTotal;
-	private Caixa numCaixa;
+	public int getCodigo() {
+		return codigo;
+	}
 	
-	public int getCodPed() {
-		return codPed;
+	public boolean setCodigo(int codigo) {
+        if(codigo>0 && codigo<=99999) {
+            this.codigo = codigo;//definir
+            return true;
+        }
+        else
+            return false;
+        //mensagem de aviso, codigo invalido
+    }
+	
+
+	public float getPrecoUnitario() {
+		return precoUnitario;
 	}
-	public void setCodPed(int codPed) {
-		this.codPed = codPed;
-	}
-	public int[] getQntd() {
-		return qntd;
-	}
-	public void setQntd(int qntdItems) {
-		qntd[qntd.length+1] = qntdItems;
-	}
-	public ArrayList<Produto> getProduto() {
-		return produto;
-	}
-	public void setProduto(ArrayList<Produto> produto) {
-		this.produto = produto;
-	}
-	public float getValorTotal() {
-		return valorTotal;
-	}
-	public void setValorTotal(float valorItem, int[] qntd) {
-		for(int i=0; i<qntd.length; i++)
-		this.valorTotal+=qntd.length*valorItem;
-	}
-	public Caixa getNumCaixa() {
-		return numCaixa;
-	}
-	public void setNumCaixa(Caixa numCaixa) {
-		if(Caixa.getAberto() == true)
-		this.numCaixa = numCaixa;
+	
+	public boolean setPrecoUnitario(float precoUnit) {
+		if(precoUnitario>=0) {
+			this.precoUnitario = precoUnit;
+			return true;
+			}
+		else
+			return false;
+			//mensagem de aviso, preco invalido
 	}
 
-	//array dos codigos pra garantir que n vao se repetir (fazer um if no setCod)
+	public String getNome() {
+		return nome;
+	}
 
+	public boolean setNome(String nome) {
+		if(nome.length()>2 && nome.length()<30) {
+			this.nome = nome;
+			return true;
+		}
+		else
+			return false;
+			//mensagem de aviso, nome invalido
+	}
+	
+	
+
+	public void setVisible(boolean b) { //VER COM O RODRIGO PQ O ECLIPSE PEDIU PR CRIAR, ER EM TELAPRODUTOS SET VISIBLE
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
