@@ -1,50 +1,45 @@
+public class Caixa {
 
-public class Caixa{
-	//atributos
+	private int numCaixa;
+	private static boolean aberto; //eclipse sugeriu deixar como static, n sabemos a veracidade
+	private float saldoCaixa; //não precisa de set
 	
-	private int ped=0, qnt;
-	float valorTotal;
-	private Produto produto;
+	//getters and setters
+	
+	public int getNumCaixa() {
+		return numCaixa;
+	}
+	
+	public void setNumCaixa(int numCaixa) {
+		if(numCaixa>0 && numCaixa<=99)
+		this.numCaixa = numCaixa;
+	}
+	
+	public static boolean getAberto(){
+		return aberto;
+	}
+	
+	public float getSaldoCaixa() {
+		return saldoCaixa;
+	}	
 
-	//array dos codigos pra garantir que n vao se repetir (fazer um if no setCod)
-	
-	public void setProduto(Produto produto){
-		this.produto=produto;
-	}
-	
-	public int getPed() {
-		return ped;
-	}
+	//métodos
 
-	public float getValorTotal() {
-		return valorTotal;
-	}
-
-	public int getQnt() {
-		return qnt;
+	public void alterarSaldo(float valorVenda) {
+		saldoCaixa += valorVenda;
 	}
 	
-	//metodos
-	
-	//setters:
-
-	public boolean setQnt(int qntItem) {
-		if(qntItem>0) {
-			this.qnt = qntItem;//definir
-			return true;
-		}else
-			return false;
-		//mensagem de aviso, qnt invalido
+	public boolean isAberto() {
+		aberto = true;
+		return true;
 	}
 	
-	public void setPed() {
-		this.ped = ped++;
+	public boolean isFechado() {
+		aberto = false;
+		return true;
 	}
 	
-	public void setTotal(int qntItem, float valorItem) {
-		this.valorTotal+=qntItem*valorItem;
-	}
-	
-	
-	
+	/*
+pedido usa arrays para produtos e qntd
+	*/
 }
