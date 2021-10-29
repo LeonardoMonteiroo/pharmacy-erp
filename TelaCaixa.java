@@ -38,6 +38,7 @@ public class TelaCaixa extends JFrame {
 	private DefaultTableModel obj1 = new DefaultTableModel(colunas, 0);
 
 	int check = 0;
+	private JTextField textField;
 	
 	public static void main(String[] args) {
 
@@ -62,7 +63,7 @@ public class TelaCaixa extends JFrame {
 	public TelaCaixa() {
 		setTitle("Caixa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 339);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -102,8 +103,8 @@ public class TelaCaixa extends JFrame {
 				Produto prod = new Produto();
 				prod.setCodigo(Integer.parseInt(campoCod.getText()));
 				
-				Caixa p1 = new Caixa();
-				p1.setQnt(Integer.parseInt(campoQuant.getText())); 
+				Pedido p1 = new Pedido();
+				p1.setQntd(Integer.parseInt(campoQuant.getText())); 
 							
 				//nao mexer, gambiarra!!!
 				if(check==0) {
@@ -121,7 +122,7 @@ public class TelaCaixa extends JFrame {
 				obj1.addRow(new String[] {
 						String.valueOf(prod.getNome()), 
 						String.valueOf(prod.getCodigo()),
-						String.valueOf(p1.getQnt()),
+						String.valueOf(p1.getQntd()),
 						String.valueOf(prod.getPrecoUnitario()) 
 				});
 				
@@ -178,5 +179,32 @@ public class TelaCaixa extends JFrame {
 		});
 		btnNewButton_2.setBounds(319, 22, 105, 23);
 		contentPane.add(btnNewButton_2);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(153, 23, 40, 20);
+		contentPane.add(textField);
+		
+		JLabel lblCaixa = new JLabel("Caixa");
+		lblCaixa.setBounds(153, 10, 46, 14);
+		contentPane.add(lblCaixa);
+		
+		JButton btnNewButton = new JButton("Abrir Caixa");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//adicionar função para abrir o caixa
+			}
+		});
+		btnNewButton.setBounds(41, 266, 112, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_3 = new JButton("Fechar Caixa");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//adicionar função para fechar o caixa
+			}
+		});
+		btnNewButton_3.setBounds(306, 266, 118, 23);
+		contentPane.add(btnNewButton_3);
 	}
 }
