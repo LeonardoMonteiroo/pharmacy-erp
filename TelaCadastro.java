@@ -97,6 +97,7 @@ public class TelaCadastro extends JFrame {
 				dispose();
 			}
 		});
+		
 		btnNewButton_1.setBounds(163, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
 	}
