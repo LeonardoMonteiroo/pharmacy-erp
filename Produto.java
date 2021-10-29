@@ -1,87 +1,47 @@
-public class Produto {
-	private int lote, codigo, estoque;
-	private String nome, categoria;
-	private float precoUnitario;
+import java.util.ArrayList;
+
+public class Pedido{
+	//atributos
 	
-	public int getCodigo() {
-		return codigo;
+	private int codPed=0;
+	private int[] qntd;
+	private ArrayList<Produto> produto = new ArrayList<Produto>();
+	private float valorTotal;
+	private Caixa numCaixa;
+	
+	public int getCodPed() {
+		return codPed;
 	}
-	
-	public boolean setCodigo(int codigo) {
-        if(codigo>0 && codigo<=99999) {
-            this.codigo = codigo;
-            return true; //seta o código
-        }
-        else
-            return false; //mensagem de aviso, codigo invalido
-    }
-	
-	public int getLote() {
-		return lote;
+	public void setCodPed(int codPed) {
+		this.codPed = codPed;
+	}
+	public int[] getQntd() {
+		return qntd;
+	}
+	public void setQntd(int qntdItems) {
+		qntd[qntd.length+1] = qntdItems;
+	}
+	public ArrayList<Produto> getProduto() {
+		return produto;
+	}
+	public void setProduto(ArrayList<Produto> produto) {
+		this.produto = produto;
+	}
+	public float getValorTotal() {
+		return valorTotal;
+	}
+	public void setValorTotal(float valorItem, int[] qntd) {
+		for(int i=0; i<qntd.length; i++)
+		this.valorTotal+=qntd.length*valorItem;
+	}
+	public Caixa getNumCaixa() {
+		return numCaixa;
+	}
+	public void setNumCaixa(Caixa numCaixa) {
+		if(Caixa.getAberto() == true)
+		this.numCaixa = numCaixa;
 	}
 
-	public boolean setLote(int lote) {
-		if(lote > 100000 && lote <= 999999) {
-			this.lote = lote;
-		return true; //seta o lote
-		}
-		else
-			return false; //mensagem de aviso, lote invalido
-	}
-	
-	public float getPrecoUnitario() {
-		return precoUnitario;
-	}
-	
-	public boolean setPrecoUnitario(float precoUnit) {
-		if(precoUnitario>=0) {
-			this.precoUnitario = precoUnit;
-			return true; //seta o preço unitário
-			}
-		else
-			return false; //mensagem de aviso, preco invalido
-	}
+	//array dos codigos pra garantir que n vao se repetir (fazer um if no setCod)
 
-	public String getNome() {
-		return nome;
-	}
-
-	public boolean setNome(String nome) {
-		if(nome.length()>2 && nome.length()<30) {
-			this.nome = nome;
-			return true; //seta o nome
-		}
-		else
-			return false; //mensagem de aviso, nome invalido
-	}
-	
-	public int getEstoque() {
-		return estoque;
-	}
-
-	public boolean setEstoque(int estoque) {
-		if(estoque >= 0) {
-			this.estoque = estoque;
-			return true; //seta o estoque
-			}
-		else
-			return false; //mensagem de aviso, nome invalido
-	}
-
-	public String getCategoria() {
-		return categoria;
-	}
-
-	public boolean setCategoria(String categoria) {
-		if(categoria.length()>2 && nome.length()<30) {
-			this.categoria = categoria;
-		 	return true; //seta categoria
-		}
-		else
-			return false; //mensagem de aviso, nome invalido
-	}
-	
-	public void entrada(int txqtd) {
-		estoque += txqtd;
-	}
 }
