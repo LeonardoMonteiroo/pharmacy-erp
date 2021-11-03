@@ -4,7 +4,7 @@ public class Pedido{
 	//atributos
 	
 	private int codPed=0;
-	private int[] qntd;
+	private ArrayList<Integer> qntd = new ArrayList<Integer>();
 	private ArrayList<Produto> produto = new ArrayList<Produto>();
 	private float valorTotal;
 	private Caixa numCaixa;
@@ -15,11 +15,11 @@ public class Pedido{
 	public void setCodPed(int codPed) {
 		this.codPed = codPed;
 	}
-	public int[] getQntd() {
-		return qntd;
+	public int getQntd(int indice) {
+		return qntd.get(indice);
 	}
 	public void setQntd(int qntdItems) {
-		qntd[qntd.length+1] = qntdItems;
+		qntd.add(qntdItems);
 	}
 	public ArrayList<Produto> getProduto() {
 		return produto;
@@ -38,7 +38,7 @@ public class Pedido{
 		return numCaixa;
 	}
 	public void setNumCaixa(Caixa numCaixa) {
-		if(Caixa.getAberto() == true)
+		if(numCaixa.getAberto() == true)
 		this.numCaixa = numCaixa;
 	}
 
