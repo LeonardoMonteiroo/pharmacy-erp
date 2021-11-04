@@ -47,23 +47,23 @@ public class Venda {
 	}
 	
 	public void setSequencia(ArrayList<Integer> sequencia) {
-		if(Integer.parseInt(sequencia.toString())>0 && Integer.parseInt(sequencia.toString())<9999)
+		if(Integer.parseInt(sequencia.toString())>0 && Integer.parseInt(sequencia.toString())<=9999)//sequência de 1 até 9999
 			this.sequencia = sequencia;
 	}
-	//continuar a partir daqui !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	public int[] getFormaPagamento() {
 		return formaPagamento;
 	}
 	
-	public void setFormaPagamento(int[] formaPagamento) {
-		this.formaPagamento = formaPagamento;
+	public void setFormaPagamento(int indice) {//indice==formapagamento
+		if(indice > 0 && indice < 5)
+			this.formaPagamento[indice] = indice;
 	}
 	
 	public Date getDataEmissao() {
 		return dataEmissao;
 	}
 	
-	public void setDataEmissao(Date dataEmissao) {
+	public void setDataEmissao(Date dataEmissao) {//nao precisa validar, pois será um valor gerado automaticamente na hora da compra
 		this.dataEmissao = dataEmissao;
 	}
 }
