@@ -19,13 +19,15 @@ public class Pedido{
 		return qntd.get(indice);
 	}
 	public void setQntd(int qntdItems) {
-		qntd.add(qntdItems);
+		if(qntdItems>0)
+			qntd.add(qntdItems);
 	}
-	public ArrayList<Produto> getProduto() {
-		return produto;
+	public Produto getProduto(int indice) {
+		return produto.get(indice);
 	}
-	public void setProduto(ArrayList<Produto> produto) {
-		this.produto = produto;
+	public void setProduto(Produto produto) {
+		if(Integer.parseInt(produto.toString())>0)
+			qntd.add(Integer.parseInt(produto.toString()));
 	}
 	public float getValorTotal() {
 		return valorTotal;
