@@ -1,21 +1,18 @@
-public class Produto { //extends Produto
+package classesdenegocio;
+public class Produto {
 	private int codigo;
 	private String nome;
 	private float precoUnitario;
 	private String marca;
+	private int estoque;
 	
 	public int getCodigo() {
 		return codigo;
 	}
 	
-	public boolean setCodigo(int codigo) {
-        if(codigo>0 && codigo<=99999) {
-            this.codigo = codigo;//definir
-            return true;
-        }
-        else
-            return false;
-        //mensagem de aviso, codigo invalido
+	public void setCodigo(int codigo) {
+        if(codigo>0 && codigo<=99999) 
+            this.codigo = codigo;
     }
 	
 
@@ -23,32 +20,18 @@ public class Produto { //extends Produto
 		return precoUnitario;
 	}
 	
-	public boolean setPrecoUnitario(float precoUnit) {
-		if(precoUnitario>0) {
+	public void setPrecoUnitario(float precoUnit) {
+		if(precoUnit>0)
 			this.precoUnitario = precoUnit;
-			return true;
-			}
-		else
-			return false;
-			//mensagem de aviso, preco invalido
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public boolean setNome(String nome) {
-		if(nome.length()>2 && nome.length()<30) {
+	public void setNome(String nome) {
+		if(nome.length()>2 && nome.length()<30) 
 			this.nome = nome;
-			return true;
-		}
-		else
-			return false;
-			//mensagem de aviso, nome invalido
-	}
-
-	public void setVisible(boolean b) { //VER COM O RODRIGO PQ O ECLIPSE PEDIU PR CRIAR, ER EM TELAPRODUTOS SET VISIBLE
-		// TODO Auto-generated method stub
 	}
 
 	public String getMarca() {
@@ -56,8 +39,16 @@ public class Produto { //extends Produto
 	}
 
 	public void setMarca(String marca) {
-		this.marca = marca;
+		if(marca.length()>2 && marca.length()<30)
+			this.marca = marca;
 	}
 	
+	public int getEstoque() {
+		return estoque;
+	}
 	
+	public void setEstoque(int estoque) {
+		if(estoque>0)
+			this.estoque = estoque;
+	}
 }
