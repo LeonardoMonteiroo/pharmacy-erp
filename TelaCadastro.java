@@ -1,20 +1,27 @@
+package tela;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import classesdenegocio.Produto;
+import dados.ProdutoDAO;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.sql.SQLException;
+
 public class TelaCadastro extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField campoNome;
-	private JTextField campoCodigo;
 	private JTextField campoPreco;
+	private JTextField campoMarca;
 
 	/**
 	 * Launch the application.
@@ -48,43 +55,48 @@ public class TelaCadastro extends JFrame {
 		contentPane.add(campoNome);
 		campoNome.setColumns(10);
 		
-		campoCodigo = new JTextField();
-		campoCodigo.setBounds(26, 117, 226, 20);
-		contentPane.add(campoCodigo);
-		campoCodigo.setColumns(10);
-		
 		campoPreco = new JTextField();
-		campoPreco.setBounds(26, 180, 226, 20);
+		campoPreco.setBounds(26, 117, 226, 20);
 		contentPane.add(campoPreco);
 		campoPreco.setColumns(10);
+		
+		campoMarca = new JTextField();
+		campoMarca.setBounds(26, 180, 226, 20);
+		contentPane.add(campoMarca);
+		campoMarca.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
 		lblNewLabel.setBounds(26, 32, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("C\u00F3digo");
-		lblNewLabel_1.setBounds(25, 97, 46, 14);
+		JLabel lblNewLabel_1 = new JLabel("Pre\u00E7o Unit\u00E1rio");
+		lblNewLabel_1.setBounds(25, 97, 67, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Pre\u00E7o UN");
+		JLabel lblNewLabel_2 = new JLabel("Marca");
 		lblNewLabel_2.setBounds(25, 161, 46, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("Cadastrar");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Produto prod1 = new Produto();
-				
-				prod1.setCodigo(Integer.parseInt(campoCodigo.getText()));
-				prod1.setNome(campoNome.getText());
-				prod1.setPrecoUnitario(Float.parseFloat(campoPreco.getText()));
-				
-				TelaEstoque telaEstoque = new TelaEstoque();
-				telaEstoque.setVisible(true);
-				dispose();
-				
-				//adicionr saida automatica apos cadastro
+			public void actionPerformed(ActionEvent arg0) {
+				Produto p = new Produto();
+				p.setNome(campoNome.getText());
+				p.setPrecoUnitario(Float.parseFloat(campoPreco.getText()));
+				p.setMarca(campoMarca.getText());
+				//Criar um objeto da classe DAO
+				ProdutoDAO pDAO = new ProdutoDAO();
+				try {
+					pDAO.salvar(p);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			private ProdutoDAO ProdutoDAO() {
+				// TODO Auto-generated method stub
+				return null;
+			} 
 		});
 		btnNewButton.setBounds(26, 227, 89, 23);
 		contentPane.add(btnNewButton);
