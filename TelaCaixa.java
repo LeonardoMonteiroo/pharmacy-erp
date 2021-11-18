@@ -1,10 +1,14 @@
-import java.awt.BorderLayout;
+package tela;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import classesdenegocio.Pedido;
+import classesdenegocio.Produto;
+
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.JScrollBar;
@@ -18,10 +22,10 @@ public class TelaCaixa extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField campoCod;
+	private JTextField txCod;
 	private JLabel lblNewLabel;
 	private JLabel lblQtde;
-	private JTextField campoQuant;
+	private JTextField txQntd;
 	private JButton btnAdicionar;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
@@ -38,7 +42,7 @@ public class TelaCaixa extends JFrame {
 	private DefaultTableModel obj1 = new DefaultTableModel(colunas, 0);
 
 	int check = 0;
-	private JTextField textField;
+	private JTextField txCaixa;
 	
 	public static void main(String[] args) {
 
@@ -78,10 +82,10 @@ public class TelaCaixa extends JFrame {
 		table.setBounds(41, 54, 239, 176);
 		contentPane.add(table);
 		
-		campoCod = new JTextField();
-		campoCod.setBounds(41, 23, 46, 20);
-		contentPane.add(campoCod);
-		campoCod.setColumns(10);
+		txCod = new JTextField();
+		txCod.setBounds(41, 23, 46, 20);
+		contentPane.add(txCod);
+		txCod.setColumns(10);
 		
 		lblNewLabel = new JLabel("C\u00F3digo");
 		lblNewLabel.setBounds(41, 10, 46, 14);
@@ -91,22 +95,20 @@ public class TelaCaixa extends JFrame {
 		lblQtde.setBounds(97, 10, 46, 14);
 		contentPane.add(lblQtde);
 		
-		campoQuant = new JTextField();
-		campoQuant.setColumns(10);
-		campoQuant.setBounds(97, 23, 46, 20);
-		contentPane.add(campoQuant);
+		txQntd = new JTextField();
+		txQntd.setColumns(10);
+		txQntd.setBounds(97, 23, 46, 20);
+		contentPane.add(txQntd);
 		
 		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				Produto prod = new Produto();
-				prod.setCodigo(Integer.parseInt(campoCod.getText()));
+				prod.setCodigo(Integer.parseInt(txCod.getText()));
 				
 				Pedido p1 = new Pedido();
-				p1.setQntd(Integer.parseInt(campoQuant.getText())); 
+				p1.setQntd(Integer.parseInt(txQntd.getText())); 
 							
-				//nao mexer, gambiarra!!!
 				if(check==0) {
 				obj1.addRow(new String[] {
 						colunas[0],
@@ -115,7 +117,7 @@ public class TelaCaixa extends JFrame {
 						colunas[3]
 				});
 				check=1;
-				}
+				}//COMO FAZ ESSA TELA RODRIGOOOOOOOOOOOO
 				
 				if(check==1 || check==2){ //testar se funciona
 				
@@ -127,20 +129,8 @@ public class TelaCaixa extends JFrame {
 				});
 				
 				check=2;
-				
 				}
-				/*else {
-					
-					obj1.addRow(new String[] {
-							p1.getNome(), 
-							String.valueOf(p1.getCodigo()),
-							String.valueOf(p1.getQnt()),
-							String.valueOf(p1.getPrecoUnitario())
-					});
-				}*/
-				
 				table.setModel(obj1);
-				
 			} 
 		});
 		
@@ -166,9 +156,7 @@ public class TelaCaixa extends JFrame {
 		precoTotal = new JLabel("R$ 0,00");
 		precoTotal.setBounds(345, 68, 46, 14);
 		contentPane.add(precoTotal);
-		//setvalor
-		//getvalor
-		
+
 		btnNewButton_2 = new JButton("Voltar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -180,10 +168,10 @@ public class TelaCaixa extends JFrame {
 		btnNewButton_2.setBounds(319, 22, 105, 23);
 		contentPane.add(btnNewButton_2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(153, 23, 40, 20);
-		contentPane.add(textField);
+		txCaixa = new JTextField();
+		txCaixa.setColumns(10);
+		txCaixa.setBounds(153, 23, 40, 20);
+		contentPane.add(txCaixa);
 		
 		JLabel lblCaixa = new JLabel("Caixa");
 		lblCaixa.setBounds(153, 10, 46, 14);
