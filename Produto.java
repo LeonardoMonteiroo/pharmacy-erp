@@ -1,4 +1,5 @@
 package classesdenegocio;
+
 public class Produto {
 	private int codigo;
 	private String nome;
@@ -26,8 +27,8 @@ public class Produto {
 	}
 
 	public String getNome() {
-		return nome;
-	}
+			return nome;
+		} 
 
 	public void setNome(String nome) {
 		if(nome.length()>2 && nome.length()<30) 
