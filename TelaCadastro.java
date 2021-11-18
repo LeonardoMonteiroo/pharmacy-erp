@@ -1,4 +1,4 @@
-package tela;
+package telas;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import classesdenegocio.Produto;
+import classesdenegocio.Medicamento;
+import classesdenegocio.Cosmeticos;
 import dados.ProdutoDAO;
 
 import javax.swing.JTextField;
@@ -15,13 +17,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.sql.SQLException;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class TelaCadastro extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField campoNome;
 	private JTextField campoPreco;
-	private JTextField campoMarca;
+	private JTextField marca;
+	private JTextField tipo;
+	private JTextField especificacao;
+	/**
+	 * @wbp.nonvisual location=-8,-31
+	 */
+	private final JRadioButton radioButton = new JRadioButton("New radio button");
+	private JTextField concentracao;
+	private JTextField qntdProd;
 
 	/**
 	 * Launch the application.
@@ -44,7 +58,7 @@ public class TelaCadastro extends JFrame {
 	 */
 	public TelaCadastro() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 294, 309);
+		setBounds(100, 100, 594, 351);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -60,10 +74,10 @@ public class TelaCadastro extends JFrame {
 		contentPane.add(campoPreco);
 		campoPreco.setColumns(10);
 		
-		campoMarca = new JTextField();
-		campoMarca.setBounds(26, 180, 226, 20);
-		contentPane.add(campoMarca);
-		campoMarca.setColumns(10);
+		marca = new JTextField();
+		marca.setBounds(26, 180, 226, 20);
+		contentPane.add(marca);
+		marca.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
 		lblNewLabel.setBounds(26, 32, 46, 14);
@@ -77,17 +91,172 @@ public class TelaCadastro extends JFrame {
 		lblNewLabel_2.setBounds(25, 161, 46, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("Cadastrar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaEstoque telaEstoque = new TelaEstoque();
+				telaEstoque.setVisible(true);
+				dispose();
+			}
+		});
+		
+		btnNewButton_1.setBounds(90, 262, 89, 23);
+		contentPane.add(btnNewButton_1);
+		
+		tipo = new JTextField();
+		tipo.setEnabled(false);
+		tipo.setBounds(335, 54, 86, 20);
+		contentPane.add(tipo);
+		tipo.setColumns(10);
+		
+		qntdProd = new JTextField();
+		qntdProd.setBounds(335, 180, 86, 20);
+		contentPane.add(qntdProd);
+		qntdProd.setColumns(10);
+		
+		especificacao = new JTextField();
+		especificacao.setEnabled(false);
+		especificacao.setBounds(335, 117, 86, 20);
+		contentPane.add(especificacao);
+		especificacao.setColumns(10);
+		
+		JRadioButton botaoUN = new JRadioButton("UN");
+		botaoUN.setEnabled(false);
+		botaoUN.setBounds(446, 53, 46, 23);
+		contentPane.add(botaoUN);
+		
+		JRadioButton botaoG = new JRadioButton("g");
+		botaoG.setEnabled(false);
+		botaoG.setBounds(494, 53, 39, 23);
+		contentPane.add(botaoG);
+		
+		JRadioButton botaoL = new JRadioButton("L");
+		botaoL.setEnabled(false);
+		botaoL.setBounds(533, 53, 39, 23);
+		contentPane.add(botaoL);
+		
+		JLabel lblNewLabel_3 = new JLabel("Unidade de medida");
+		lblNewLabel_3.setBounds(451, 32, 121, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Tipo");
+		lblNewLabel_4.setBounds(335, 32, 97, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_4_1 = new JLabel("Especifica\u00E7\u00E3o");
+		lblNewLabel_4_1.setBounds(335, 97, 97, 14);
+		contentPane.add(lblNewLabel_4_1);
+		
+		JLabel lblNewLabel_5 = new JLabel("Qntd do produto");
+		lblNewLabel_5.setBounds(335, 161, 86, 14);
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("Concetra\u00E7\u00E3o");
+		lblNewLabel_6.setBounds(451, 161, 78, 14);
+		contentPane.add(lblNewLabel_6);
+		
+		concentracao = new JTextField();
+		concentracao.setEnabled(false);
+		concentracao.setBounds(446, 180, 86, 20);
+		contentPane.add(concentracao);
+		concentracao.setColumns(10);
+		
+		JRadioButton botaoCos = new JRadioButton("Cosm\u00E9tico");
+		
+		JRadioButton botaoMed = new JRadioButton("Medicamento");
+		botaoMed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(botaoMed.isSelected()) {
+					botaoCos.setSelected(false);
+					//especificação e un de medida false
+					botaoUN.setEnabled(false);
+					botaoG.setEnabled(false);
+					botaoL.setEnabled(false);
+					especificacao.setEnabled(false);
+					
+					//qntd de produto e concentraaco true
+					qntdProd.setEnabled(true);
+					tipo.setEnabled(true);
+					concentracao.setEnabled(true);
+				}else {
+					botaoUN.setEnabled(false);
+					botaoG.setEnabled(false);
+					botaoL.setEnabled(false);
+					especificacao.setEnabled(false);
+					qntdProd.setEnabled(false);
+					tipo.setEnabled(false);
+					concentracao.setEnabled(false);
+					
+				}
+			}
+		});
+		botaoMed.setBounds(31, 222, 109, 23);
+		contentPane.add(botaoMed);
+		
+		botaoCos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(botaoCos.isSelected()) {
+					botaoMed.setSelected(false); //desativar o outro
+					//qntd de produto e concentraaco true
+					qntdProd.setEnabled(false);
+					concentracao.setEnabled(false);
+					
+					
+					//especificação e un de medida false
+					botaoUN.setEnabled(true);
+					botaoG.setEnabled(true);
+					botaoL.setEnabled(true);
+					especificacao.setEnabled(true);
+					tipo.setEnabled(true);
+				}else {
+					botaoUN.setEnabled(false);
+					botaoG.setEnabled(false);
+					botaoL.setEnabled(false);
+					especificacao.setEnabled(false);
+					qntdProd.setEnabled(false);
+					tipo.setEnabled(false);
+					concentracao.setEnabled(false);
+					
+				}
+			}
+		});
+		botaoCos.setBounds(154, 222, 109, 23);
+		contentPane.add(botaoCos);
+		
+		
+		JButton confirmarBotao = new JButton("Confirmar");
+		confirmarBotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Produto p = new Produto();
+				Medicamento m = new Medicamento();
+				Cosmeticos c = new Cosmeticos();
 				p.setNome(campoNome.getText());
 				p.setPrecoUnitario(Float.parseFloat(campoPreco.getText()));
-				p.setMarca(campoMarca.getText());
+				p.setMarca(marca.getText());
+				m.setTipo(tipo.getText());
+				
+				if(qntdProd.getText() != null || qntdProd.getText() != "") {
+					m.setQtdProduto(Integer.parseInt(qntdProd.getText()));
+				}else {
+					m.setQtdProduto(Integer.parseInt("0"));
+				}
+				
+				m.setConcentracao(Float.parseFloat(concentracao.getText()));
+				c.setTipo(tipo.getText());
+				c.setEspecificacao(especificacao.getText());
+				//c.setUnidMedidaProd();
+				if(botaoUN.isSelected()) {
+					c.setUnidMedidaProd(botaoUN.getText());
+				}else if(botaoG.isSelected()) {
+					c.setUnidMedidaProd(botaoG.getText());
+				}else if(botaoL.isSelected()) {
+					c.setUnidMedidaProd(botaoL.getText());
+				}
+				
 				//Criar um objeto da classe DAO
 				ProdutoDAO pDAO = new ProdutoDAO();
 				try {
-					pDAO.salvar(p);
+					pDAO.salvar(p, c, m);
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -98,19 +267,8 @@ public class TelaCadastro extends JFrame {
 				return null;
 			} 
 		});
-		btnNewButton.setBounds(26, 227, 89, 23);
-		contentPane.add(btnNewButton);
+		confirmarBotao.setBounds(383, 262, 109, 23);
+		contentPane.add(confirmarBotao);
 		
-		JButton btnNewButton_1 = new JButton("Voltar");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaEstoque telaEstoque = new TelaEstoque();
-				telaEstoque.setVisible(true);
-				dispose();
-			}
-		});
-		
-		btnNewButton_1.setBounds(163, 227, 89, 23);
-		contentPane.add(btnNewButton_1);
-	}
-}
+
+} }
