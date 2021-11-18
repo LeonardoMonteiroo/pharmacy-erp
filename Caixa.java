@@ -1,7 +1,8 @@
+package classesdenegocio;
 public class Caixa {
 
 	private int numCaixa;
-	private static boolean aberto; //eclipse sugeriu deixar como static, n sabemos a veracidade
+	private boolean aberto;
 	private float saldoCaixa; //não precisa de set
 	
 	//getters and setters
@@ -15,7 +16,7 @@ public class Caixa {
 		this.numCaixa = numCaixa;
 	}
 	
-	public static boolean getAberto(){
+	public boolean getAberto(){
 		return aberto;
 	}
 	
