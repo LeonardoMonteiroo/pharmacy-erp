@@ -1,8 +1,10 @@
+package tela;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -69,20 +71,5 @@ public class TelaMenu extends JFrame {
 		});
 		btnNewButton_1_2.setBounds(48, 87, 133, 51);
 		contentPane.add(btnNewButton_1_2);
-		
-		JButton btnNewButton = new JButton("Conectar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Farmacia con = new Farmacia();
-				try {
-					con.conectar();
-				}
-				catch(ClassNotFoundException | SQLException e){
-					e.printStackTrace();
-				}
-			}
-		});
-		btnNewButton.setBounds(50, 227, 89, 23);
-		contentPane.add(btnNewButton);
 	}
 }
