@@ -1,15 +1,22 @@
+package classesdenegocio;
+
+import telas.TelaCadastro;
+
 public class Cosmeticos extends Produto {
-	private String especificao; //pode ser cor, tipo de creme (por exemplo), aroma, etc
+	private String especificacao; //pode ser cor, tipo de creme (por exemplo), aroma, etc
 	private String tipo; //pinceis, cremes, maquiagem...
 	private String unidMedidaProd;
 	
 	
 	public String getEspecificao() {
-		return especificao;
+		return especificacao;
 	}
-	public void setEspecificao(String especificao) {
-
-		this.especificao = especificao;
+	public void setEspecificacao(String especificao) {
+		if (especificao != null) {
+			this.especificacao = especificacao;
+		} else if (especificao == null) {
+			this.especificacao = null;
+		}
 	}
 	public String getTipo() {
 		return tipo;
@@ -23,10 +30,13 @@ public class Cosmeticos extends Produto {
 	public String getUnidMedidaProd() {
 		return unidMedidaProd;
 	}
-	public void setUnidMedidaProd(String unidMedidaProd) {
+	public void setUnidMedidaProd(String unidMedidaProdExemplo) {
+		
 		unidMedidaProd.toUpperCase();		
-		if(unidMedidaProd == "ML" || unidMedidaProd == "G" || unidMedidaProd == "L"){
-		this.unidMedidaProd = unidMedidaProd;
+		if(unidMedidaProd == "UN" || unidMedidaProd == "G" || unidMedidaProd == "L"){
+		this.unidMedidaProd = unidMedidaProdExemplo;
+		}else if (unidMedidaProd == null) {
+			this.unidMedidaProd = null;
 		}
 	}
 
