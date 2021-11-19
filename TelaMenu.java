@@ -49,7 +49,7 @@ public class TelaMenu extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(268, 87, 133, 51);
+		btnNewButton_1.setBounds(261, 25, 133, 51);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Sair");
@@ -69,7 +69,18 @@ public class TelaMenu extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1_2.setBounds(48, 87, 133, 51);
+		btnNewButton_1_2.setBounds(44, 25, 133, 51);
 		contentPane.add(btnNewButton_1_2);
+		
+		JButton btnNewButton_1_2_1 = new JButton("Venda");
+		btnNewButton_1_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaVenda telaVenda = new TelaVenda();
+				telaVenda.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1_2_1.setBounds(44, 127, 133, 51);
+		contentPane.add(btnNewButton_1_2_1);
 	}
 }
