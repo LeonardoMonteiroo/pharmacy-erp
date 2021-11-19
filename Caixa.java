@@ -3,7 +3,7 @@ public class Caixa {
 
 	private int numCaixa;
 	private boolean aberto;
-	private float saldoCaixa; //não precisa de set
+	private float saldoCaixa;
 	
 	//getters and setters
 	
@@ -18,6 +18,11 @@ public class Caixa {
 	
 	public boolean getAberto(){
 		return aberto;
+	}
+	
+	public void setAberto(boolean aberto) {
+		if(aberto==true || aberto==false)
+		this.aberto = aberto;
 	}
 	
 	public float getSaldoCaixa() {
@@ -39,8 +44,4 @@ public class Caixa {
 		aberto = false;
 		return true;
 	}
-	
-	/*
-pedido usa arrays para produtos e qntd
-	*/
 }
