@@ -1,54 +1,34 @@
 package tela;
+
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
-import classesdenegocio.Pedido;
+import classesdenegocio.Caixa;
+import classesdenegocio.Cosmeticos;
+import classesdenegocio.Medicamento;
 import classesdenegocio.Produto;
+import dados.CaixaDAO;
 
-import javax.swing.JTable;
-import javax.swing.UIManager;
-import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class TelaCaixa extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	private JTextField txCod;
-	private JLabel lblNewLabel;
-	private JLabel lblQtde;
-	private JTextField txQntd;
-	private JButton btnAdicionar;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
-	private JButton btnNewButton_1;
-	private JLabel lblNewLabel_3;
-	private JLabel precoTotal;
-	private JButton btnNewButton_2;
+	private JTextField txCaixa;
 
 	/**
 	 * Launch the application.
 	 */
-	
-	String colunas[] = {"Nome", "Código", "Quantidade", "Preço UN"};
-	private DefaultTableModel obj1 = new DefaultTableModel(colunas, 0);
-
-	int check = 0;
-	private JTextField txCaixa;
-	
 	public static void main(String[] args) {
-
-		
-		
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -65,134 +45,112 @@ public class TelaCaixa extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCaixa() {
-		setTitle("Caixa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 339);
+		setBounds(100, 100, 238, 176);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(262, 54, 17, 176);
-		contentPane.add(scrollBar);
+		txCaixa = new JTextField();
+		txCaixa.setBounds(106, 11, 106, 20);
+		contentPane.add(txCaixa);
+		txCaixa.setColumns(10);
 		
-		table = new JTable(0, 4);
-		table.setBorder(UIManager.getBorder("ComboBox.border"));
-		table.setBounds(41, 54, 239, 176);
-		contentPane.add(table);
-		
-		txCod = new JTextField();
-		txCod.setBounds(41, 23, 46, 20);
-		contentPane.add(txCod);
-		txCod.setColumns(10);
-		
-		lblNewLabel = new JLabel("C\u00F3digo");
-		lblNewLabel.setBounds(41, 10, 46, 14);
+		JLabel lblNewLabel = new JLabel("N\u00FAmero do Caixa");
+		lblNewLabel.setBounds(10, 14, 86, 14);
 		contentPane.add(lblNewLabel);
 		
-		lblQtde = new JLabel("Qtde.");
-		lblQtde.setBounds(97, 10, 46, 14);
-		contentPane.add(lblQtde);
-		
-		txQntd = new JTextField();
-		txQntd.setColumns(10);
-		txQntd.setBounds(97, 23, 46, 20);
-		contentPane.add(txQntd);
-		
-		btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Produto prod = new Produto();
-				prod.setCodigo(Integer.parseInt(txCod.getText()));
-				
-				Pedido p1 = new Pedido();
-				p1.setQntd(Integer.parseInt(txQntd.getText())); 
-							
-				if(check==0) {
-				obj1.addRow(new String[] {
-						colunas[0],
-						colunas[1],
-						colunas[2],
-						colunas[3]
-				});
-				check=1;
-				}//COMO FAZ ESSA TELA RODRIGOOOOOOOOOOOO
-				
-				if(check==1 || check==2){ //testar se funciona
-				
-				obj1.addRow(new String[] {
-						String.valueOf(prod.getNome()), 
-						String.valueOf(prod.getCodigo()),
-						String.valueOf(p1.getQntd()),
-						String.valueOf(prod.getPrecoUnitario()) 
-				});
-				
-				check=2;
+		JButton btnNewButton = new JButton("Criar Caixa");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Caixa c = new Caixa();
+				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
+					
+				//Criar um objeto da classe DAO
+				CaixaDAO cDAO = new CaixaDAO();
+				try {
+					cDAO.salvar(c);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				table.setModel(obj1);
-			} 
+			}
 		});
+		btnNewButton.setBounds(10, 68, 89, 23);
+		contentPane.add(btnNewButton);
 		
-		btnAdicionar.setBounds(203, 22, 77, 23);
-		contentPane.add(btnAdicionar);
+		JButton btnExluirCaixa = new JButton("Exluir Caixa");
+		btnExluirCaixa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Caixa c = new Caixa();
+				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
+					
+				//Criar um objeto da classe DAO
+				CaixaDAO cDAO = new CaixaDAO();
 		
-		lblNewLabel_1 = new JLabel("Total");
-		lblNewLabel_1.setBounds(345, 157, 46, 14);
-		contentPane.add(lblNewLabel_1);
+				try {
+					cDAO.deletarCaixa(c);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnExluirCaixa.setBounds(106, 68, 106, 23);
+		contentPane.add(btnExluirCaixa);
 		
-		lblNewLabel_2 = new JLabel("R$ 0,00");
-		lblNewLabel_2.setBounds(345, 171, 46, 14);
-		contentPane.add(lblNewLabel_2);
+		JButton btnAbirCaixa = new JButton("Abrir Caixa");
+		btnAbirCaixa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Caixa c = new Caixa();
+				c.setAberto(true);//define o caixa como aberto
+				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
+					
+				//Criar um objeto da classe DAO
+				CaixaDAO cDAO = new CaixaDAO();
 		
-		btnNewButton_1 = new JButton("Fechar pedido");
-		btnNewButton_1.setBounds(306, 207, 118, 23);
-		contentPane.add(btnNewButton_1);
+				try {
+					cDAO.statusCaixa(c);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnAbirCaixa.setBounds(10, 34, 89, 23);
+		contentPane.add(btnAbirCaixa);
 		
-		lblNewLabel_3 = new JLabel("Pre\u00E7o Total");
-		lblNewLabel_3.setBounds(345, 54, 61, 14);
-		contentPane.add(lblNewLabel_3);
+		JButton btnFecharCaixa = new JButton("Fechar Caixa");
+		btnFecharCaixa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Caixa c = new Caixa();
+				c.setAberto(false);//define o caixa como fechado
+				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
+					
+				//Criar um objeto da classe DAO
+				CaixaDAO cDAO = new CaixaDAO();
 		
-		precoTotal = new JLabel("R$ 0,00");
-		precoTotal.setBounds(345, 68, 46, 14);
-		contentPane.add(precoTotal);
-
-		btnNewButton_2 = new JButton("Voltar");
-		btnNewButton_2.addActionListener(new ActionListener() {
+				try {
+					cDAO.statusCaixa(c);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnFecharCaixa.setBounds(106, 34, 106, 23);
+		contentPane.add(btnFecharCaixa);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaMenu telaMenu = new TelaMenu();
 				telaMenu.setVisible(true);
 				dispose();
 			}
 		});
-		btnNewButton_2.setBounds(319, 22, 105, 23);
-		contentPane.add(btnNewButton_2);
-		
-		txCaixa = new JTextField();
-		txCaixa.setColumns(10);
-		txCaixa.setBounds(153, 23, 40, 20);
-		contentPane.add(txCaixa);
-		
-		JLabel lblCaixa = new JLabel("Caixa");
-		lblCaixa.setBounds(153, 10, 46, 14);
-		contentPane.add(lblCaixa);
-		
-		JButton btnNewButton = new JButton("Abrir Caixa");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//adicionar função para abrir o caixa
-			}
-		});
-		btnNewButton.setBounds(41, 266, 112, 23);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_3 = new JButton("Fechar Caixa");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//adicionar função para fechar o caixa
-			}
-		});
-		btnNewButton_3.setBounds(306, 266, 118, 23);
-		contentPane.add(btnNewButton_3);
+		btnVoltar.setBounds(106, 103, 106, 23);
+		contentPane.add(btnVoltar);
 	}
 }
