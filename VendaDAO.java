@@ -3,6 +3,8 @@ package dados;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+
+import classesdenegocio.Caixa;
 import classesdenegocio.Venda;
 
 public class VendaDAO {
@@ -28,5 +30,46 @@ public class VendaDAO {
 		comando.execute();
 		//fechar a conexão!
 		con.close();
+	}
+	
+	public void mudarQuantidade(Venda v, int codProduto, int codVenda) throws ClassNotFoundException, SQLException {
+		//Comando SQL -> insert...
+		String sql = "update venda set "
+					+ "quantidade='?' and total='?'"
+					+ "where codProduto like '?' and codVenda'?'"; 
+		//Criar o objeto para conexão com BD
+		Farmacia conexao = new Farmacia(); //-> 
+		//Conectando ao BD
+		Connection con = conexao.conectar(); //-> .conectar()
+				//Criar um objeto que constroi o comando SQL
+		PreparedStatement comando = con.prepareStatement(sql);
+				// 1 -> ?
+		comando.setInt(1, v.getQntd());
+				// 2 -> ?
+		comando.setFloat(2, v.getValorTotal());
+				// 3 -> ?
+		comando.setInt(3, codProduto);
+				// 3 -> ?
+		comando.setInt(4, codVenda);
+		comando.execute();
+				//fechar a conexão!
+		con.close();		
+	}
+	
+	public void deletarVenda(Venda v, int codVenda) throws ClassNotFoundException, SQLException {
+		//Comando SQL -> insert...
+		String sql = "delete from venda "
+					+ "where codVenda like '?'"; 
+		//Criar o objeto para conexão com BD
+		Farmacia conexao = new Farmacia(); //-> 
+		//Conectando ao BD
+		Connection con = conexao.conectar(); //-> .conectar()
+				//Criar um objeto que constroi o comando SQL
+		PreparedStatement comando = con.prepareStatement(sql);
+				// 1 -> ?
+		comando.setInt(1, codVenda);
+		comando.execute();
+				//fechar a conexão!
+		con.close();		
 	}
 }
