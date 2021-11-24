@@ -22,7 +22,7 @@ public class Produto {
 	}
 	
 	public void setPrecoUnitario(float precoUnit) {
-		if(precoUnit>0)
+		if(precoUnit!=0)
 			this.precoUnitario = precoUnit;
 	}
 
