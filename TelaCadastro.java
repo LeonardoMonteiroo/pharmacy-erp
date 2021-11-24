@@ -163,30 +163,24 @@ public class TelaCadastro extends JFrame {
 		
 		JRadioButton botaoCos = new JRadioButton("Cosm\u00E9tico");
 		
-		JRadioButton botaoMed = new JRadioButton("Medicamento");
+		JRadioButton botaoMed = new JRadioButton("Medicamento"); //o que acontece qnd o botao medicament é true
 		botaoMed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(botaoMed.isSelected()) {
+				if(botaoMed.isSelected() == true) {
 					botaoCos.setSelected(false);
-					//especificação e un de medida false
 					botaoUN.setEnabled(false);
 					botaoG.setEnabled(false);
 					botaoL.setEnabled(false);
 					especificacao.setEnabled(false);
-					
+					especificacao.setText(null);
+					botaoUN.setSelected(false);
+					botaoG.setSelected(false);
+					botaoL.setSelected(false);
+
 					//qntd de produto e concentraaco true
 					qntdProd.setEnabled(true);
 					tipo.setEnabled(true);
 					concentracao.setEnabled(true);
-				}else {
-					botaoUN.setEnabled(false);
-					botaoG.setEnabled(false);
-					botaoL.setEnabled(false);
-					especificacao.setEnabled(false);
-					qntdProd.setEnabled(false);
-					tipo.setEnabled(false);
-					concentracao.setEnabled(false);
-					
 				}
 			}
 		});
@@ -195,12 +189,12 @@ public class TelaCadastro extends JFrame {
 		
 		botaoCos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(botaoCos.isSelected()) {
-					botaoMed.setSelected(false); //desativar o outro
-					//qntd de produto e concentraaco true
+				if(botaoCos.isSelected() == true) {
+					botaoMed.setSelected(false);
 					qntdProd.setEnabled(false);
-					concentracao.setEnabled(false);
-					
+					concentracao.setEnabled(false); 
+					qntdProd.setText(null); //apagar se digitado antes e a opcao for trocada
+					concentracao.setText(null);			
 					
 					//especificação e un de medida false
 					botaoUN.setEnabled(true);
@@ -208,15 +202,6 @@ public class TelaCadastro extends JFrame {
 					botaoL.setEnabled(true);
 					especificacao.setEnabled(true);
 					tipo.setEnabled(true);
-				}else {
-					botaoUN.setEnabled(false);
-					botaoG.setEnabled(false);
-					botaoL.setEnabled(false);
-					especificacao.setEnabled(false);
-					qntdProd.setEnabled(false);
-					tipo.setEnabled(false);
-					concentracao.setEnabled(false);
-					
 				}
 			}
 		});
@@ -234,24 +219,29 @@ public class TelaCadastro extends JFrame {
 				p.setPrecoUnitario(Float.parseFloat(campoPreco.getText()));
 				p.setMarca(marca.getText());
 				m.setTipo(tipo.getText());
-				
-				if(qntdProd.getText() != null || qntdProd.getText() != "") {
-					m.setQtdProduto(Integer.parseInt(qntdProd.getText()));
+				if ((concentracao.getText()).length() == 0) {
+					m.setConcentracao(0);  //se o valor for null ele deve retornar 0 para n dar erro (int n pode ser == null)
 				}else {
-					m.setQtdProduto(Integer.parseInt("0"));
+					m.setConcentracao(Float.parseFloat(concentracao.getText()));
 				}
-				
-				m.setConcentracao(Float.parseFloat(concentracao.getText()));
 				c.setTipo(tipo.getText());
 				c.setEspecificacao(especificacao.getText());
+				
+				if((qntdProd.getText()).length() != 0) {
+					m.setQtdProduto(Integer.parseInt(qntdProd.getText()));
+				}else {
+					m.setQtdProduto(Integer.parseInt("0"));  //se o valor for null ele deve retornar 0 para n dar erro (int n pode ser == null)
+				}
+				
+
 				//c.setUnidMedidaProd();
 				if(botaoUN.isSelected()) {
-					c.setUnidMedidaProd(botaoUN.getText());
+					c.setUnidMedidaProd("Unidade");
 				}else if(botaoG.isSelected()) {
-					c.setUnidMedidaProd(botaoG.getText());
+					c.setUnidMedidaProd("Grama");
 				}else if(botaoL.isSelected()) {
-					c.setUnidMedidaProd(botaoL.getText());
-				}
+					c.setUnidMedidaProd("Litro");
+				} //define de acordo com a opção
 				
 				//Criar um objeto da classe DAO
 				ProdutoDAO pDAO = new ProdutoDAO();
