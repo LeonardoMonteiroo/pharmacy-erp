@@ -10,10 +10,7 @@ public class Medicamento extends Produto{
 		return tipo;
 	}
 	public void setTipo(String tipo) {//indice = tipo
-		tipo.toUpperCase();		
-		if(tipo == "COMPRIMIDOS" || tipo == "COMPRIMIDO" || tipo == "CAPSULAS" || tipo == "CAPSULA" || tipo == "ML"){
 		this.tipo = tipo;
-		}
 	}
 	public int getQtdProduto() {
 		return qtdProduto;
@@ -21,13 +18,19 @@ public class Medicamento extends Produto{
 	public void setQtdProduto(int qtdProduto) {
 		if(qtdProduto>0) {
 			this.qtdProduto = qtdProduto;
+		}else{
+			this.qtdProduto = 0;
 		}
 	}
+
 	public float getConcentracao() {
 		return concentracao;
 	}
 	public void setConcentracao(float concentracao) {
-		if(concentracao>0)
+		if(concentracao>0) {
 			this.concentracao = concentracao;
-	}	
+		}else {
+			this.concentracao = 0;
+		}
+	}
 }
