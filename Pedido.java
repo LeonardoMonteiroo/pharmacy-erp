@@ -2,11 +2,11 @@ package classesdenegocio;
 
 public class Pedido{
 	//atributos
-	private int codPed=0;
+	private int codPed;
 	private int qntd;
-	private Produto produto;
+	private int produto;
 	private float valorTotal;
-	private Caixa numCaixa;
+	private Produto PrecoUN;
 	
 	public int getCodPed() {
 		return codPed;
@@ -25,12 +25,12 @@ public class Pedido{
 			this.qntd= qntd;
 	}
 	
-	public Produto getProduto() {
+	public int getProduto() {
 		return produto;
 	}
 	
-	public void setProduto(Produto produto) {
-		if(Integer.parseInt(produto.toString())>0)
+	public void setProduto(int produto) {
+		if(produto>0)
 			this.produto = produto;
 	}
 	
@@ -42,13 +42,12 @@ public class Pedido{
 		for(int i=0; i<qntd.length; i++)
 		this.valorTotal+=qntd.length*valorItem;
 	}
-	
-	public Caixa getNumCaixa() {
-		return numCaixa;
+
+	public Produto getPrecoUN() {
+		return PrecoUN;
 	}
-	
-	public void setNumCaixa(Caixa numCaixa) {
-		if(numCaixa.getAberto() == true)
-		this.numCaixa = numCaixa;
+
+	public void setPrecoUN(Produto precoUN) {
+		PrecoUN = precoUN;
 	}
 }
