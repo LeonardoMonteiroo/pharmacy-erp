@@ -1,7 +1,9 @@
 package dados;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Connection;
 
 import classesdenegocio.Caixa;
@@ -71,5 +73,38 @@ public class VendaDAO {
 		comando.execute();
 				//fechar a conexão!
 		con.close();		
+	}
+	
+	public ArrayList<Venda> listar(Venda v) throws SQLException, ClassNotFoundException{ //retornar os dados SELECT
+		//Comando SQL -> insert...
+		String sql = "select * "
+					+ "from venda "
+					+ "where numCaixa like ?";
+					 
+		//Criar o objeto para conexão com BD
+		Farmacia conexao = new Farmacia(); //-> 
+		//Conectando ao BD
+		Connection con = conexao.conectar(); //-> .conectar()
+		//Criar um objeto que constroi o comando SQL
+		PreparedStatement comando = con.prepareStatement(sql);
+		
+		// 1 -> ? parâmetros where nome like ? or preco >= ...
+		comando.setInt(1, v.getNumCaixa());
+		
+		ArrayList<Venda> resultado = new ArrayList<Venda>();
+		//ResultSet - conjunto de dados do SELECT
+		ResultSet rs = comando.executeQuery(); 
+			
+		//.next() -> próximo resultado do ResultSet
+		while(rs.next()) { //repetir para o número de linhas do BD
+			Venda v1 = new Venda();
+			v1.setNumCaixa(rs.getInt("numCaixa"));
+			v1.setAberto(rs.getBoolean("aberto"));
+			v1.setSaldoCaixa(rs.getFloat("saldoCaixa"));
+			resultado.add(v1);
+		} //repete enquanto o .next() == true
+			
+		con.close();
+		return resultado;
 	}
 }
