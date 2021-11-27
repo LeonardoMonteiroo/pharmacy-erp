@@ -25,14 +25,19 @@ public class Caixa {
 		this.aberto = aberto;
 	}
 	
+	public String getStatus(){
+		if(aberto == true)
+			return "aberto";
+		else
+			return "fechado";
+	}
+	
 	public float getSaldoCaixa() {
 		return saldoCaixa;
 	}	
 
-	//métodos
-
-	public void alterarSaldo(float valorVenda) {
-		saldoCaixa += valorVenda;
+	public void setSaldoCaixa(float saldoCaixa) {
+		this.saldoCaixa = saldoCaixa;
 	}
 	
 	public boolean isAberto() {
