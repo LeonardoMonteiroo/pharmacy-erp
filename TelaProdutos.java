@@ -63,51 +63,51 @@ public class TelaProdutos extends JFrame {
 	public TelaProdutos(Produto p) {
 		setTitle("Produto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 458, 294);
+		setBounds(100, 100, 458, 328);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("C\u00F3digo ");
-		lblNewLabel.setBounds(10, 11, 67, 22);
+		lblNewLabel.setBounds(10, 45, 67, 22);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNome = new JLabel("Nome");
-		lblNome.setBounds(10, 76, 67, 22);
+		lblNome.setBounds(10, 110, 67, 22);
 		contentPane.add(lblNome);
 		
 		JLabel lblQuantiadeEmEstoque = new JLabel("Quantiade em estoque");
-		lblQuantiadeEmEstoque.setBounds(145, 76, 115, 22);
+		lblQuantiadeEmEstoque.setBounds(145, 110, 115, 22);
 		contentPane.add(lblQuantiadeEmEstoque);
 		
 		JLabel lblPreoUnitrio = new JLabel("Pre\u00E7o Unit\u00E1rio");
-		lblPreoUnitrio.setBounds(10, 148, 67, 22);
+		lblPreoUnitrio.setBounds(10, 182, 67, 22);
 		contentPane.add(lblPreoUnitrio);
 		
 		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setBounds(144, 9, 67, 22);
+		lblMarca.setBounds(144, 43, 67, 22);
 		contentPane.add(lblMarca);
 		
 		JLabel lblEspecificao = new JLabel("Especifica\u00E7\u00E3o");
-		lblEspecificao.setBounds(145, 148, 67, 22);
+		lblEspecificao.setBounds(145, 182, 67, 22);
 		contentPane.add(lblEspecificao);
 		
 		JLabel lblUnidadeDeMedida = new JLabel("Unidade de medida");
-		lblUnidadeDeMedida.setBounds(311, 147, 115, 22);
+		lblUnidadeDeMedida.setBounds(311, 179, 115, 22);
 		contentPane.add(lblUnidadeDeMedida);
 		
 		JLabel lblQntdDoProduto = new JLabel("Qntd do produto");
-		lblQntdDoProduto.setBounds(307, 13, 102, 22);
+		lblQntdDoProduto.setBounds(307, 47, 102, 22);
 		contentPane.add(lblQntdDoProduto);
 		
 		JLabel lblConcentrao = new JLabel("Concentra\u00E7\u00E3o");
-		lblConcentrao.setBounds(307, 76, 67, 22);
+		lblConcentrao.setBounds(307, 110, 67, 22);
 		contentPane.add(lblConcentrao);
 		
 		campoCodigo = new JTextField();
 		campoCodigo.setText(String.valueOf(p.getSearchCod()));
-		campoCodigo.setBounds(10, 30, 107, 20);
+		campoCodigo.setBounds(10, 64, 107, 20);
 		contentPane.add(campoCodigo);
 		campoCodigo.setColumns(10);
 		
@@ -115,63 +115,63 @@ public class TelaProdutos extends JFrame {
 		txtPre.setText("00000000.000");
 		txtPre.setEnabled(false);
 		txtPre.setColumns(10);
-		txtPre.setBounds(10, 165, 107, 20);
+		txtPre.setBounds(10, 199, 107, 20);
 		contentPane.add(txtPre);
 		
 		txtEst = new JTextField();
 		txtEst.setText("00");
 		txtEst.setEnabled(false);
 		txtEst.setColumns(10);
-		txtEst.setBounds(145, 98, 107, 20);
+		txtEst.setBounds(145, 132, 107, 20);
 		contentPane.add(txtEst);
 		
 		txtUn = new JTextField();
 		txtUn.setText("00000000.000");
 		txtUn.setEnabled(false);
 		txtUn.setColumns(10);
-		txtUn.setBounds(311, 164, 107, 20);
+		txtUn.setBounds(311, 199, 107, 20);
 		contentPane.add(txtUn);
 		
 		txtQntdProd = new JTextField();
 		txtQntdProd.setText("00000000.000");
 		txtQntdProd.setEnabled(false);
 		txtQntdProd.setColumns(10);
-		txtQntdProd.setBounds(307, 30, 107, 20);
+		txtQntdProd.setBounds(307, 64, 107, 20);
 		contentPane.add(txtQntdProd);
 		
 		txtMarca = new JTextField();
 		txtMarca.setText("xxxxxx");
 		txtMarca.setEnabled(false);
 		txtMarca.setColumns(10);
-		txtMarca.setBounds(145, 28, 107, 20);
+		txtMarca.setBounds(145, 62, 107, 20);
 		contentPane.add(txtMarca);
 		
 		txtNome = new JTextField();
 		txtNome.setText("xxxxxx");
 		txtNome.setEnabled(false);
 		txtNome.setColumns(10);
-		txtNome.setBounds(10, 93, 107, 20);
+		txtNome.setBounds(10, 127, 107, 20);
 		contentPane.add(txtNome);
 		
 		txtEsp = new JTextField();
 		txtEsp.setText("xxxxxx");
 		txtEsp.setEnabled(false);
 		txtEsp.setColumns(10);
-		txtEsp.setBounds(145, 165, 107, 20);
+		txtEsp.setBounds(145, 199, 107, 20);
 		contentPane.add(txtEsp);
 		
 		txtConc = new JTextField();
 		txtConc.setText("xxxxxx");
 		txtConc.setEnabled(false);
 		txtConc.setColumns(10);
-		txtConc.setBounds(313, 95, 107, 20);
+		txtConc.setBounds(307, 132, 107, 20);
 		contentPane.add(txtConc);
 		
 		txtTipo = new JTextField();
 		txtTipo.setText("xxxxxx");
 		txtTipo.setEnabled(false);
 		txtTipo.setColumns(10);
-		txtTipo.setBounds(10, 224, 107, 20);
+		txtTipo.setBounds(10, 258, 107, 20);
 		contentPane.add(txtTipo);
 				
 	
@@ -216,15 +216,19 @@ public class TelaProdutos extends JFrame {
 			}else if(Integer.parseInt(campoCodigo.getText()) > 0 && btAlterar.getText() == "Alterar") {
 			btAlterar.setText("Confirmar");
 			//preparar para dados
+			
+			if(txtEsp.getText()!=null) {
+				txtEsp.setEnabled(true);
+				txtUn.setEnabled(true);		
+			}else {
+				txtConc.setEnabled(true);
+				txtQntdProd.setEnabled(true);
+			}
+			
 			txtNome.setEnabled(true);
 			txtPre.setEnabled(true);
 			txtMarca.setEnabled(true);
-			txtTipo.setEnabled(true);
-			txtConc.setEnabled(true);
-			txtEsp.setEnabled(true);
-			txtQntdProd.setEnabled(true);
-			txtEsp.setEnabled(true);
-			txtUn.setEnabled(true);						
+			txtTipo.setEnabled(true);		
 						
 }
 		}
@@ -234,7 +238,7 @@ public class TelaProdutos extends JFrame {
 		} 
 	});
 
-	btAlterar.setBounds(163, 221, 89, 23);
+	btAlterar.setBounds(163, 253, 89, 23);
 	contentPane.add(btAlterar);
 	
 	JButton btDeletar = new JButton("Deletar");
@@ -253,12 +257,12 @@ public class TelaProdutos extends JFrame {
 			
 		}
 	});
-	btDeletar.setBounds(256, 221, 89, 23);
+	btDeletar.setBounds(256, 253, 89, 23);
 	contentPane.add(btDeletar);
 	btDeletar.setEnabled(false);
 	
 	JLabel lblTipo = new JLabel("Tipo");
-	lblTipo.setBounds(10, 207, 67, 22);
+	lblTipo.setBounds(10, 241, 67, 22);
 	contentPane.add(lblTipo);
 	
 	JButton btPesquisar = new JButton("Pesquisar");
@@ -307,8 +311,19 @@ public class TelaProdutos extends JFrame {
 			
 		}
 	});
-	btPesquisar.setBounds(349, 221, 89, 23);
+	btPesquisar.setBounds(349, 253, 89, 23);
 	contentPane.add(btPesquisar);
+	
+	JButton voltar = new JButton("Voltar");
+	voltar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			TelaEstoque telaEstoque = new TelaEstoque();
+			telaEstoque.setVisible(true);
+			dispose();
+		}
+	});
+	voltar.setBounds(10, 11, 89, 23);
+	contentPane.add(voltar);
 	
 
 }
