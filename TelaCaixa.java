@@ -1,6 +1,5 @@
 package tela;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,10 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import classesdenegocio.Caixa;
-import classesdenegocio.Cosmeticos;
-import classesdenegocio.Medicamento;
-import classesdenegocio.Pedido;
-import classesdenegocio.Produto;
 import dados.CaixaDAO;
 
 import javax.swing.JTextField;
@@ -20,9 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class TelaCaixa extends JFrame {
@@ -35,8 +31,9 @@ public class TelaCaixa extends JFrame {
 	 * Launch the application.
 	 */
 	
-	String colunas[] = {"Caixa", "Status", "Saldo"};
+	String colunas[] = {"Caixa", "Status", "Data", "Saldo"};
 	private JTextField txSaldoDoCaixa;
+	private JTextField txData;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,32 +61,13 @@ public class TelaCaixa extends JFrame {
 		contentPane.setLayout(null);
 		
 		txCaixa = new JTextField();
-		txCaixa.setBounds(126, 11, 51, 20);
+		txCaixa.setBounds(119, 11, 51, 20);
 		contentPane.add(txCaixa);
 		txCaixa.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("N\u00FAmero do Caixa");
 		lblNewLabel.setBounds(10, 14, 106, 14);
 		contentPane.add(lblNewLabel);
-		
-		JButton btnNewButton = new JButton("Criar Caixa");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Caixa c = new Caixa();
-				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
-					
-				//Criar um objeto da classe DAO
-				CaixaDAO cDAO = new CaixaDAO();
-				try {
-					cDAO.salvar(c);
-				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		btnNewButton.setBounds(10, 92, 106, 23);
-		contentPane.add(btnNewButton);
 		
 		JButton btnExluirCaixa = new JButton("Exluir Caixa");
 		btnExluirCaixa.addActionListener(new ActionListener() {
@@ -115,44 +93,41 @@ public class TelaCaixa extends JFrame {
 		btnAbirCaixa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Caixa c = new Caixa();
-				c.setAberto(true);//define o caixa como aberto
+				c.setStatus(true);//define o caixa como aberto
 				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
 					
 				//Criar um objeto da classe DAO
 				CaixaDAO cDAO = new CaixaDAO();
 		
 				try {
-					cDAO.statusCaixa(c);
+					cDAO.abrirCaixa(c);
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		btnAbirCaixa.setBounds(126, 92, 116, 23);
+		btnAbirCaixa.setBounds(10, 92, 106, 23);
 		contentPane.add(btnAbirCaixa);
 		
 		JButton btnFecharCaixa = new JButton("Fechar Caixa");
 		btnFecharCaixa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Caixa c = new Caixa();
-				c.setAberto(false);//define o caixa como fechado
 				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
-				c.setSaldoCaixa(0);
 				
 				//Criar um objeto da classe DAO
 				CaixaDAO cDAO = new CaixaDAO();
 		
 				try {
-					cDAO.statusCaixa(c);
-					cDAO.saldoCaixa(c);
+					cDAO.fecharCaixa(c);
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		btnFecharCaixa.setBounds(126, 126, 118, 23);
+		btnFecharCaixa.setBounds(126, 92, 118, 23);
 		contentPane.add(btnFecharCaixa);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -163,11 +138,11 @@ public class TelaCaixa extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(264, 10, 106, 23);
+		btnVoltar.setBounds(126, 126, 116, 23);
 		contentPane.add(btnVoltar);
 		
 		table = new JTable();
-		table.setBounds(10, 42, 244, 39);
+		table.setBounds(10, 42, 360, 31);
 		contentPane.add(table);
 		
 		
@@ -180,16 +155,27 @@ public class TelaCaixa extends JFrame {
 				DefaultTableModel modelo = new DefaultTableModel();
 				modelo.addColumn("Caixa"); //visualização
 				modelo.addColumn("Status");
+				modelo.addColumn("Data");
 				modelo.addColumn("Saldo");
 				
 				//Objeto para receber os filtros (WHERE)
 				Caixa c = new Caixa();
 				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					c.setData(formato.parse(txData.getText()));
+				} catch (ParseException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+				
 				
 				modelo.addRow(new String[] {
 						colunas[0],
 						colunas[1],
-						colunas[2]
+						colunas[2],
+						colunas[3]
 				});
 				
 				CaixaDAO cDAO = new CaixaDAO();
@@ -206,7 +192,8 @@ public class TelaCaixa extends JFrame {
 					//Cada linha:
 					modelo.addRow(new Object[] {
 							cItem.getNumCaixa(),
-							cItem.getStatus(),
+							cItem.getAbertoFechado(),
+							formato.format(cItem.getData()),
 							cItem.getSaldoCaixa()
 					});
 				} //fim for
@@ -214,11 +201,11 @@ public class TelaCaixa extends JFrame {
 				table.setModel(modelo);
 			}
 		});
-		btnNewButton_1.setBounds(186, 10, 68, 23);
+		btnNewButton_1.setBounds(302, 10, 68, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("Saldo do Caixa");
-		lblNewLabel_1.setBounds(275, 80, 87, 14);
+		lblNewLabel_1.setBounds(271, 78, 99, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton_2 = new JButton("Alterar Saldo");
@@ -247,5 +234,14 @@ public class TelaCaixa extends JFrame {
 		txSaldoDoCaixa.setBounds(252, 93, 118, 20);
 		contentPane.add(txSaldoDoCaixa);
 		txSaldoDoCaixa.setColumns(10);
+		
+		JLabel lblData = new JLabel("Data");
+		lblData.setBounds(180, 14, 41, 14);
+		contentPane.add(lblData);
+		
+		txData = new JTextField();
+		txData.setBounds(214, 11, 78, 20);
+		contentPane.add(txData);
+		txData.setColumns(10);
 	}
 }
