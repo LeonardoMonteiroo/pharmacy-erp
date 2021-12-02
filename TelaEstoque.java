@@ -1,21 +1,27 @@
+package tela;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import classesdenegocio.Produto;
+
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TelaEstoque extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField campoCodigoDigitado;
 	private JTextField textField_1;
+	public ArrayList<Integer> pesquisar = new ArrayList<Integer>();
 
 	/**
 	 * Launch the application.
@@ -54,10 +60,15 @@ public class TelaEstoque extends JFrame {
 		lblNewLabel.setBounds(10, 40, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(53, 37, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		campoCodigoDigitado = new JTextField();
+		//campoCodigoDigitado.addActionListener(new ActionListener() {
+		//	public void actionPerformed(ActionEvent e) {
+		//		pesquisar.add(Integer.parseInt(campoCodigoDigitado.getText()));
+		//	}
+		//});
+		campoCodigoDigitado.setBounds(53, 37, 86, 20);
+		contentPane.add(campoCodigoDigitado);
+		campoCodigoDigitado.setColumns(10);
 		
 		JLabel lblNom = new JLabel("Nome:");
 		lblNom.setBounds(149, 40, 46, 14);
@@ -69,6 +80,15 @@ public class TelaEstoque extends JFrame {
 		contentPane.add(textField_1);
 		
 		JButton btnNewButton = new JButton("Pesquisar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Produto produtos = new Produto();
+				produtos.setSearchCod(Integer.parseInt(campoCodigoDigitado.getText()));
+				TelaProdutos telaProdutos = new TelaProdutos(produtos);
+				telaProdutos.setVisible(true);
+				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NAO FUNCIONA
+			}
+		});
 		btnNewButton.setBounds(286, 36, 89, 23);
 		contentPane.add(btnNewButton);
 		
