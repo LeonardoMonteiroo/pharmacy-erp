@@ -1,4 +1,4 @@
-package telas;
+package tela;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,12 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import classesdenegocio.Produto;
 import classesdenegocio.Medicamento;
 import classesdenegocio.Cosmeticos;
 import dados.ProdutoDAO;
-import telas.TelaEstoque;
+import tela.TelaEstoque;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -25,7 +26,6 @@ public class TelaProdutos extends JFrame {
 
 
 	private JPanel contentPane;
-	private JTextField txtCod;
 	private JTextField txtPre;
 	private JTextField txtEst;
 	private JTextField txtUn;
@@ -35,6 +35,7 @@ public class TelaProdutos extends JFrame {
 	private JTextField txtEsp;
 	private JTextField txtConc;
 	private JTextField txtTipo;
+	private JTextField campoCodigo;
 
 	/**
 	 * Launch the application.
@@ -43,7 +44,8 @@ public class TelaProdutos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaProdutos frame = new TelaProdutos();
+					Produto p1 = new Produto();
+					TelaProdutos frame = new TelaProdutos(p1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +58,9 @@ public class TelaProdutos extends JFrame {
 	 * Create the frame.
 	 * @return 
 	 */
-	public TelaProdutos() {
+	
+	
+	public TelaProdutos(Produto p) {
 		setTitle("Produto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 458, 294);
@@ -101,12 +105,11 @@ public class TelaProdutos extends JFrame {
 		lblConcentrao.setBounds(307, 76, 67, 22);
 		contentPane.add(lblConcentrao);
 		
-		txtCod = new JTextField();
-		txtCod.setEnabled(true);
-		txtCod.setText("0000");
-		txtCod.setBounds(10, 28, 107, 20);
-		contentPane.add(txtCod);
-		txtCod.setColumns(10);
+		campoCodigo = new JTextField();
+		campoCodigo.setText(String.valueOf(p.getSearchCod()));
+		campoCodigo.setBounds(10, 30, 107, 20);
+		contentPane.add(campoCodigo);
+		campoCodigo.setColumns(10);
 		
 		txtPre = new JTextField();
 		txtPre.setText("00000000.000");
@@ -170,7 +173,7 @@ public class TelaProdutos extends JFrame {
 		txtTipo.setColumns(10);
 		txtTipo.setBounds(10, 224, 107, 20);
 		contentPane.add(txtTipo);
-		
+				
 	
 	JButton btAlterar = new JButton("Alterar");
 	btAlterar.addActionListener(new ActionListener() {
@@ -181,7 +184,7 @@ public class TelaProdutos extends JFrame {
 				Medicamento m = new Medicamento();
 				Cosmeticos c = new Cosmeticos();
 				
-				p.setCodigo(Integer.parseInt(txtCod.getText()));
+				p.setCodigo(Integer.parseInt(campoCodigo.getText()));
 				p.setNome(txtNome.getText());
 				p.setPrecoUnitario(Float.parseFloat(txtPre.getText()));
 				p.setMarca(txtMarca.getText());
@@ -210,7 +213,7 @@ public class TelaProdutos extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} 
-			}else if(Integer.parseInt(txtCod.getText()) > 0 && btAlterar.getText() == "Alterar") {
+			}else if(Integer.parseInt(campoCodigo.getText()) > 0 && btAlterar.getText() == "Alterar") {
 			btAlterar.setText("Confirmar");
 			//preparar para dados
 			txtNome.setEnabled(true);
@@ -222,16 +225,6 @@ public class TelaProdutos extends JFrame {
 			txtQntdProd.setEnabled(true);
 			txtEsp.setEnabled(true);
 			txtUn.setEnabled(true);						
-			
-			txtNome.setText("");
-			txtPre.setText("");
-			txtMarca.setText("");
-			txtTipo.setText("");
-			txtConc.setText("");
-			txtEsp.setText("");
-			txtQntdProd.setText("");
-			txtEsp.setText("");
-			txtUn.setText("");
 						
 }
 		}
@@ -249,10 +242,10 @@ public class TelaProdutos extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			Produto p = new Produto();
-			p.setCodigo(Integer.parseInt(txtCod.getText()));
+			
 			ProdutoDAO pDAO = new ProdutoDAO();
 			try {
-				pDAO.deletar(p);
+				pDAO.deletar(p, Integer.parseInt(campoCodigo.getText()));
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -260,14 +253,68 @@ public class TelaProdutos extends JFrame {
 			
 		}
 	});
-	btDeletar.setBounds(307, 221, 89, 23);
+	btDeletar.setBounds(256, 221, 89, 23);
 	contentPane.add(btDeletar);
+	btDeletar.setEnabled(false);
 	
 	JLabel lblTipo = new JLabel("Tipo");
 	lblTipo.setBounds(10, 207, 67, 22);
 	contentPane.add(lblTipo);
 	
+	JButton btPesquisar = new JButton("Pesquisar");
+	btPesquisar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			btDeletar.setEnabled(true);
+			
+			//Objeto para receber os filtros (WHERE)
+			Produto p = new Produto();
+			Cosmeticos c = new Cosmeticos();
+			Medicamento m = new Medicamento();
+			p.setCodigo(Integer.parseInt(campoCodigo.getText()));
+			
+			ProdutoDAO pDAO = new ProdutoDAO();
+			ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+			ArrayList<Cosmeticos> listaCosmetico = new ArrayList<Cosmeticos>();
+			ArrayList<Medicamento> listaMedicamento = new ArrayList<Medicamento>();
+			try {
+				listaProdutos = pDAO.listarP(p);
+				listaMedicamento = pDAO.listarM(m);
+				listaCosmetico = pDAO.listarC(c);
+				
+				
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//Mostrar isso Tabela (JTable)
+			//for(int i=0; i < listaProdutos.size(); i++) {
+			for(Produto pItem: listaProdutos) {
+				//Cada linha:
+				txtNome.setText(pItem.getNome());
+				txtPre.setText(String.valueOf(pItem.getPrecoUnitario()));
+				txtMarca.setText(pItem.getMarca());
+			}
+			for(Medicamento mItem: listaMedicamento) {
+				txtQntdProd.setText(String.valueOf(mItem.getQtdProduto()));
+				txtConc.setText(String.valueOf(mItem.getConcentracao()));	
+			}
+			for(Cosmeticos cItem: listaCosmetico) {txtTipo.setText(cItem.getTipo());
+				txtEsp.setText(cItem.getEspecificao());
+				txtUn.setText(String.valueOf(cItem.getUnidMedidaProd()));	
+				
+			}//fim for
+			//Aplicar o modelo dentro do JTable:
+			
+		}
+	});
+	btPesquisar.setBounds(349, 221, 89, 23);
+	contentPane.add(btPesquisar);
+	
 
 }
-	
+
+	private String toString(Integer searchCod) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
