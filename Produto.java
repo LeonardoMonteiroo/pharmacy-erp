@@ -6,6 +6,7 @@ public class Produto {
 	private float precoUnitario;
 	private String marca;
 	private int estoque;
+	private Integer searchCod;
 	
 	public int getCodigo() {
 		return codigo;
@@ -15,6 +16,14 @@ public class Produto {
         if(codigo>0 && codigo<=99999) 
             this.codigo = codigo;
     }
+	
+	public void setSearchCod(int i) {
+		this.searchCod = i;
+	}
+	
+	public Integer getSearchCod() {
+		return searchCod;
+	}
 	
 
 	public float getPrecoUnitario() {
