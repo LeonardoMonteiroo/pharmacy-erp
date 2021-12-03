@@ -1,53 +1,59 @@
 package classesdenegocio;
 
+import java.util.ArrayList;
+
 public class Pedido{
 	//atributos
-	private int codPed;
-	private int qntd;
-	private int produto;
-	private float valorTotal;
-	private Produto PrecoUN;
+	private int codPedido;
+	private ArrayList<Produto> produto = new ArrayList<Produto>();
+	private Caixa numCaixa;
+	private ArrayList<Integer> qntd = new ArrayList<Integer>();
+	private ArrayList<Float> valorTotalItem = new ArrayList<Float>();
 	
-	public int getCodPed() {
-		return codPed;
+	public int getCodPedido() {
+		return codPedido;
 	}
 	
-	public void setCodPed(int codPed) {
-		this.codPed = codPed;
+	public void setCodPedido(int codPedido) {
+		if(codPedido>0)
+			this.codPedido = codPedido;
 	}
 	
-	public int getQntd() {
-		return qntd;
-	}
-	
-	public void setQntd(int qntd) {
-		if(qntd>0)
-			this.qntd= qntd;
-	}
-	
-	public int getProduto() {
+	public ArrayList<Produto> getProduto() {
 		return produto;
 	}
-	
-	public void setProduto(int produto) {
-		if(produto>0)
-			this.produto = produto;
-	}
-	
-	public float getValorTotal() {
-		return valorTotal;
-	}
-	
-	public void setValorTotal(float valorItem, int[] qntd) {
-		for(int i=0; i<qntd.length; i++)
-		this.valorTotal+=qntd.length*valorItem;
+
+	public void setProduto(Produto pro) {
+		this.produto.add(pro);
 	}
 
-	public Produto getPrecoUN() {
-		return PrecoUN;
+	public int getQntd() {
+		int num = qntd.get(qntd.size() - 1);
+		return num;
 	}
 
-	public void setPrecoUN(Produto precoUN) {
-		PrecoUN = precoUN;
+	public void setQntd(int qntd) {
+		this.qntd.add(qntd);
+	}
+
+	public float getValorTotalItem() {
+		float num = qntd.get(qntd.size() - 1);
+		return num;
+	}
+
+	public void setValorTotalItem(float valorTotalItem) {
+		this.valorTotalItem.add(valorTotalItem);
+	}
+
+	public Caixa getNumCaixa() {
+		return numCaixa;
+	}
+
+	public void setNumCaixa(Caixa numCaixa) {
+		this.numCaixa = numCaixa;
+	}
+	
+	public int numProduto() {
+		return produto.size();
 	}
 }
