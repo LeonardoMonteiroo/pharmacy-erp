@@ -11,8 +11,6 @@ import classesdenegocio.Cosmeticos;
 import classesdenegocio.Medicamento;
 import classesdenegocio.Pedido;
 import classesdenegocio.Produto;
-import classesdenegocio.Venda;
-import dados.VendaDAO;
 import dados.CaixaDAO;
 import dados.PedidoDAO;
 
@@ -24,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -47,7 +47,7 @@ public class TelaVenda extends JFrame {
 	 * Launch the application.
 	 */
 	
-	String colunas[] = {"Nome", "Código", "Quantidade", "Preço UN", "Preço Total"};
+	String colunas[] = {"Código", "Nome", "Quantidade", "Valor Unitário", "Valor Total"};
 	
 	private JTextField txCaixa;
 	
@@ -94,13 +94,13 @@ public class TelaVenda extends JFrame {
 		lblNewLabel.setBounds(20, 35, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		lblQtde = new JLabel("Qtde.");
-		lblQtde.setBounds(76, 35, 46, 14);
+		lblQtde = new JLabel("Quantidade");
+		lblQtde.setBounds(76, 35, 77, 14);
 		contentPane.add(lblQtde);
 		
 		txQntd = new JTextField();
 		txQntd.setColumns(10);
-		txQntd.setBounds(76, 48, 46, 20);
+		txQntd.setBounds(76, 48, 61, 20);
 		contentPane.add(txQntd);
 		
 		btnAdicionar = new JButton("Adicionar");
@@ -110,16 +110,20 @@ public class TelaVenda extends JFrame {
 				
 				//Criar um modelo de tabela -> JTable
 				DefaultTableModel modelo = new DefaultTableModel();
-				modelo.addColumn("CodPedido"); //visualização
-				modelo.addColumn("CodProduto");
-				modelo.addColumn("Preço Unitário");
+				modelo.addColumn("Código"); //visualização
+				modelo.addColumn("Nome");
 				modelo.addColumn("Quantidade");
+				modelo.addColumn("Valor Unitário");
 				modelo.addColumn("Valor Total");
 				
 				//Objeto para receber os filtros (WHERE)
-				Pedido p = new Pedido();
-				p.setProduto(Integer.parseInt(txCod.getText()));
-				p.setQntd(Integer.parseInt(txQntd.getText()));
+				Pedido ped = new Pedido();
+				Produto pro = new Produto();
+				Caixa c = new Caixa();
+				pro.setCodigo(Integer.parseInt(txCod.getText()));
+				c.setNumCaixa(Integer.parseInt(txCaixa.getText()));
+				ped.setQntd(Integer.parseInt(txQntd.getText()));
+				ped.setValorTotalItem(Integer.parseInt(txQntd.getText())*pro.getPrecoUnitario());
 				
 				modelo.addRow(new String[] {
 						colunas[0],
@@ -130,33 +134,28 @@ public class TelaVenda extends JFrame {
 				});
 				
 				PedidoDAO pDAO = new PedidoDAO();
-				ArrayList<Pedido> listaPedido = new ArrayList<Pedido>();
-				
+				ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
 				try {
-					pDAO.salvar(p);
-				} catch (ClassNotFoundException | SQLException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				
-				try {
-					listaPedido = pDAO.listar(p);
+					pDAO.salvar(ped, pro, c);
+					listaPedidos = pDAO.listar(ped, pro);
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				//Mostrar isso Tabela (JTable)
 				//for(int i=0; i < listaProdutos.size(); i++) {
-				for(Pedido pItem: listaPedido) {
-					//Cada linha:
-					modelo.addRow(new Object[] {
-							pItem.getCodPed(),
-							pItem.getProduto(),
-							pItem.getPrecoUN(),
-							pItem.getQntd(),
-							pItem.getValorTotal()
-					});
-				} //fim for
+				for(Pedido peItem: listaPedidos) {
+					for(Produto p: peItem.getProduto()) {
+						//Cada linha:
+						modelo.addRow(new Object[] {
+								p.getNome(),
+								p.getCodigo(),
+								peItem.getQntd(),
+								p.getPrecoUnitario(),
+								peItem.getValorTotalItem(),
+						});					
+					}
+				}
 				//Aplicar o modelo dentro do JTable:
 				table.setModel(modelo);
 			}
@@ -176,48 +175,6 @@ public class TelaVenda extends JFrame {
 		btnNewButton_1 = new JButton("Fechar pedido");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//1º Dados da tabela Produto -> listar() -> ArrayList
-				
-				//Criar um modelo de tabela -> JTable
-				DefaultTableModel modelo = new DefaultTableModel();
-				modelo.addColumn("Código");
-				modelo.addColumn("Nome"); //visualização
-				modelo.addColumn("Preço Unitário");
-				modelo.addColumn("Quantidade");
-				modelo.addColumn("Preço Total");
-				
-				//Objeto para receber os filtros (WHERE)
-				Venda v = new Venda();
-				v.setNumCaixa(Integer.parseInt(txCaixa.getText()));
-				
-				modelo.addRow(new String[] {
-						colunas[0],
-						colunas[1],
-						colunas[2],
-						colunas[3],
-						colunas[4]
-				});
-				
-				VendaDAO vDAO = new VendaDAO();
-				ArrayList<Venda> listaVenda = new ArrayList<Venda>();
-				try {
-					listaVenda = vDAO.listar(v);
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				//Mostrar isso Tabela (JTable)
-				//for(int i=0; i < listaProdutos.size(); i++) {
-				for(Venda cItem: listaVenda) {
-					//Cada linha:
-					modelo.addRow(new Object[] {
-							cItem.getNumCaixa(),
-							cItem.getStatus(),
-							cItem.getSaldoCaixa()
-					});
-				} //fim for
-				//Aplicar o modelo dentro do JTable:
-				table.setModel(modelo);
 			}
 		});
 		btnNewButton_1.setBounds(306, 207, 118, 23);
@@ -244,11 +201,11 @@ public class TelaVenda extends JFrame {
 		
 		txCaixa = new JTextField();
 		txCaixa.setColumns(10);
-		txCaixa.setBounds(41, 7, 40, 20);
+		txCaixa.setBounds(64, 4, 35, 20);
 		contentPane.add(txCaixa);
 		
 		JLabel lblCaixa = new JLabel("Caixa");
-		lblCaixa.setBounds(10, 10, 31, 14);
+		lblCaixa.setBounds(21, 7, 45, 14);
 		contentPane.add(lblCaixa);
 	}
 }
