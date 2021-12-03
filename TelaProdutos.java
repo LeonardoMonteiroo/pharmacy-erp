@@ -217,7 +217,7 @@ public class TelaProdutos extends JFrame {
 			btAlterar.setText("Confirmar");
 			//preparar para dados
 			
-			if(txtEsp.getText()!=null) {
+			if(txtEsp.getText().length()>1) {
 				txtEsp.setEnabled(true);
 				txtUn.setEnabled(true);		
 			}else {
